@@ -37,7 +37,8 @@ import {
   Palette,
   Cloud,
   GitBranch,
-  Coffee
+  Coffee,
+  GraduationCap
 } from "lucide-react"
 
 // Professional theme configuration with design tokens
@@ -226,9 +227,9 @@ const STATS_DATA = [
 // Navigation configuration
 const NAV_ITEMS = [
   { value: "about", label: "About", icon: User },
-  { value: "portfolio", label: "Work", icon: Briefcase },
+  { value: "portfolio", label: "Projects", icon: Briefcase },
   { value: "skills", label: "Skills", icon: Zap },
-  { value: "contact", label: "Contact", icon: Mail }
+  {value: "courses", label: "Courses", icon: GraduationCap },
 ]
 
 // Custom hooks for enhanced functionality
@@ -315,11 +316,9 @@ export default function ProfessionalPortfolio() {
           <div className="text-center max-w-4xl mx-auto">
             {/* Professional Avatar */}
             <div className="relative mb-8 group">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center text-black text-3xl sm:text-4xl font-bold shadow-2xl shadow-amber-500/30 transition-all duration-500 group-hover:shadow-amber-500/50 group-hover:scale-105">
+              <div className="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full bg-amber-500 flex items-center justify-center text-black text-3xl sm:text-4xl font-bold shadow-2xl  transition-all duration-500 group-hover:shadow-amber-500/50 group-hover:scale-105">
                 HN
               </div>
-              <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-black animate-pulse"></div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400/20 to-transparent blur-xl group-hover:from-amber-400/40 transition-all duration-500"></div>
             </div>
 
             {/* Enhanced Typography */}
@@ -327,11 +326,10 @@ export default function ProfessionalPortfolio() {
               Haris Narrendran
             </h1>
             <p className="text-xl sm:text-2xl md:text-3xl text-gray-400 mb-6 font-light">
-              Full-Stack Developer & UI/UX Designer
+              Undergraduate @ IIT Bombay | AI Researcher | Backend Developer
             </p>
             <p className="text-gray-500 max-w-2xl mx-auto mb-12 text-lg leading-relaxed">
-              Crafting digital experiences that blend beautiful design with powerful functionality.
-              Passionate about creating solutions that make a difference in people's lives.
+              I’m a third-year student passionate about building intelligent systems — from AI models to backend services and applied machine learning pipelines.
             </p>
 
             {/* Enhanced CTA Buttons */}
@@ -389,62 +387,43 @@ export default function ProfessionalPortfolio() {
 
               {/* Enhanced About Tab */}
               <TabsContent value="about" className="mt-8">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
-                  <div className="space-y-6 order-2 lg:order-1">
+                <div className=" items-center">
+                    <div className="space-y-6 order-2 lg:order-1">
                     <div>
-                      <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-amber-400 bg-clip-text text-transparent">
+                        <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-amber-400 bg-clip-text text-transparent">
                         About Me
-                      </h2>
-                      <div className="w-20 h-1 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full mb-8"></div>
+                        </h2>
+                        <div className="w-20 h-1 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full mb-8"></div>
                     </div>
 
                     <p className="text-gray-300 text-lg leading-relaxed">
-                      I'm a passionate full-stack developer with 7+ years of experience creating
-                      exceptional digital experiences. I specialize in modern web technologies
-                      and have a keen eye for design that converts.
+                        I'm Haris Narrendran, an undergraduate at IIT Bombay in Engineering Physics, and pursuing a dual minor in Artificial Intelligence & Data Science  and  Computer Science.
                     </p>
 
                     <p className="text-gray-400 leading-relaxed">
-                      My expertise spans from crafting pixel-perfect frontends to building
-                      robust backend systems. I believe in writing clean, maintainable code
-                      and creating solutions that scale with your business needs.
+                        I'm deeply interested in Artificial Intelligence, especially areas like computer vision, generative models. I enjoy exploring how learning algorithms can model complex real-world systems in science, engineering, and decision-making.
+                    </p>
+
+                    <p className="text-gray-400 leading-relaxed">
+                        My focus lies in developing performant, backend-driven systems that scale. I’m also drawn to the intersection of AI and real-time applications — from intelligent agents to low-level systems that integrate AI models with APIs, robotics, or optimization tasks.
                     </p>
 
                     <div className="flex flex-wrap gap-3 pt-4">
-                      {['React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'AWS'].map((tech) => (
-                        <span key={tech} className="px-4 py-2 bg-amber-500/10 text-amber-400 rounded-full text-sm border border-amber-500/20 hover:bg-amber-500/20 transition-colors">
-                          {tech}
+                        {['Artificial Intelligence', 'Backend Systems', 'Computer Vision', 'Diffusion Models', 'Recommender System', 'Data Structures'].map((interest) => (
+                        <span key={interest} className="px-4 py-2 bg-amber-500/10 text-amber-400 rounded-full text-sm border border-amber-500/20 hover:bg-amber-500/20 transition-colors">
+                            {interest}
                         </span>
-                      ))}
+                        ))}
                     </div>
 
                     <Button className="bg-amber-500 hover:bg-amber-600 text-black font-semibold px-8 py-3 rounded-xl mt-8 transition-all duration-300 hover:scale-105 group">
-                      <Download className="mr-2 group-hover:animate-bounce" size={18} />
-                      Download Resume
+                        <Download className="mr-2 group-hover:animate-bounce" size={18} />
+                        Download Resume
                     </Button>
-                  </div>
-
-                  {/* Enhanced Stats Grid */}
-                  <div id="stats-section" className="grid grid-cols-2 gap-6 order-1 lg:order-2">
-                    {STATS_DATA.map(({ number, label, icon: Icon, description, gradient }, index) => {
-                      const animatedNumber = useAnimatedCounter(parseInt(number), 2000)
-                      
-                      return (
-                        <div key={label} className="bg-gray-900/50 backdrop-blur border border-gray-800 rounded-2xl p-6 text-center hover:border-amber-500/30 transition-all duration-500 hover:scale-105 group">
-                          <div className={`w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-r ${gradient} flex items-center justify-center`}>
-                            <Icon size={24} className="text-white group-hover:animate-pulse" />
-                          </div>
-                          <div className="text-3xl font-bold text-amber-400 mb-2">
-                            {isVisible ? (number.includes('+') ? `${animatedNumber}+` : number.includes('%') ? `${animatedNumber}%` : number) : '0'}
-                          </div>
-                          <div className="text-gray-400 text-sm font-medium">{label}</div>
-                          <div className="text-gray-500 text-xs mt-1">{description}</div>
-                        </div>
-                      )
-                    })}
-                  </div>
+                    </div>
                 </div>
-              </TabsContent>
+                </TabsContent>
+
 
               {/* Enhanced Portfolio Tab */}
               <TabsContent value="portfolio" className="mt-8">
@@ -547,49 +526,6 @@ export default function ProfessionalPortfolio() {
                       </div>
                     )
                   })}
-                </div>
-              </TabsContent>
-
-              {/* Enhanced Contact Tab */}
-              <TabsContent value="contact" className="mt-8">
-                <div className="max-w-4xl mx-auto">
-                  <div className="text-center mb-12">
-                    <h2 className="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-amber-400 bg-clip-text text-transparent">
-                      Let's Work Together
-                    </h2>
-                    <p className="text-gray-400 text-lg">Ready to bring your ideas to life? Let's create something amazing.</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    <div className="bg-gray-900/30 backdrop-blur border border-gray-800 rounded-2xl p-8 hover:border-amber-500/30 transition-all duration-300 hover:scale-105 group">
-                      <div className="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4">
-                        <Mail className="text-amber-400 group-hover:animate-pulse" size={24} />
-                      </div>
-                      <h3 className="text-xl font-semibold mb-2">Email Me</h3>
-                      <p className="text-gray-400 mb-4">Drop me a line and I'll get back to you within 24 hours.</p>
-                      <a href="mailto:haris@example.com" className="text-amber-400 hover:text-amber-300 transition-colors font-medium">
-                        haris@example.com
-                      </a>
-                    </div>
-
-                    <div className="bg-gray-900/30 backdrop-blur border border-gray-800 rounded-2xl p-8 hover:border-amber-500/30 transition-all duration-300 hover:scale-105 group">
-                      <div className="w-12 h-12 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4">
-                        <Linkedin className="text-amber-400 group-hover:animate-pulse" size={24} />
-                      </div>
-                      <h3 className="text-xl font-semibold mb-2">LinkedIn</h3>
-                      <p className="text-gray-400 mb-4">Let's connect and discuss opportunities.</p>
-                      <a href="#" className="text-amber-400 hover:text-amber-300 transition-colors font-medium">
-                        @harisnarrendran
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="text-center">
-                    <Button className="bg-amber-500 hover:bg-amber-600 text-black font-semibold px-12 py-4 rounded-2xl text-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 group">
-                      <Mail className="mr-2 group-hover:animate-bounce" size={20} />
-                      Start a Project
-                    </Button>
-                  </div>
                 </div>
               </TabsContent>
             </Tabs>
