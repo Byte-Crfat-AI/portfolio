@@ -38,7 +38,8 @@ import {
   Cloud,
   GitBranch,
   Coffee,
-  GraduationCap
+  GraduationCap,
+  Sparkle
 } from "lucide-react"
 
 // Professional theme configuration with design tokens
@@ -78,6 +79,24 @@ const THEME_CONFIG = {
     lg: '1024px',
     xl: '1280px',
   }
+}
+
+const getDifficultyColor = (difficulty) => {
+  switch (difficulty) {
+    case 'Advanced': return 'text-red-400 bg-red-400/10 border-red-400/20'
+    case 'Intermediate': return 'text-blue-400 bg-blue-400/10 border-blue-400/20'
+    case 'Beginner': return 'text-green-400 bg-green-400/10 border-green-400/20'
+    default: return 'text-gray-400 bg-gray-400/10 border-gray-400/20'
+  }
+}
+
+// Function to get grade color
+const getGradeColor = (grade) => {
+  if (grade === 'A+') return 'text-emerald-400'
+  if (grade === 'A') return 'text-green-400'
+  if (grade === 'B+') return 'text-blue-400'
+  if (grade === 'B') return 'text-yellow-400'
+  return 'text-gray-400'
 }
 
 // Enhanced project data with proper categorization
@@ -178,7 +197,7 @@ const SKILLS_DATA = [
   },
   { 
     name: 'UI/UX Design', 
-    level: 87, 
+    level: 30, 
     icon: Palette, 
     category: 'Design',
     color: '#FF6B6B'
@@ -192,43 +211,132 @@ const SKILLS_DATA = [
   }
 ]
 
-// Stats data with professional metrics
-const STATS_DATA = [
-  { 
-    number: "7+", 
-    label: "Years Experience", 
-    icon: Rocket,
-    description: "Professional development",
-    gradient: "from-blue-400 to-blue-600"
+const COURSE_DATA = [
+  {
+    title: "Machine Learning Fundamentals",
+    institute: "Indian Institute of Technology Bombay",
+    department: "Computer Science & Engineering",
+    code: "CS419",
+    instructor: "Prof. Ganesh Ramakrishnan",
+    description: "Comprehensive introduction to machine learning algorithms, mathematical foundations, and practical applications",
+    concepts: ["Linear Regression", "SVM", "Neural Networks", "Deep Learning", "CNN", "RNN", "Optimization"],
+    category: "AI/ML",
+    difficulty: "Advanced",
+    icon: Brain,
+    grade: "A",
+    semester: "Spring 2024"
   },
-  { 
-    number: "50+", 
-    label: "Projects Completed", 
-    icon: Briefcase,
-    description: "Successful deliveries",
-    gradient: "from-green-400 to-green-600"
+  {
+    title: "Data Structures and Algorithms",
+    institute: "Indian Institute of Technology Bombay",
+    department: "Computer Science & Engineering",
+    code: "CS213",
+    instructor: "Prof. Sunita Sarawagi",
+    description: "Advanced data structures, algorithm design techniques, and complexity analysis for efficient problem solving",
+    concepts: ["Trees", "Graphs", "Dynamic Programming", "Greedy Algorithms", "Hashing", "Sorting", "Searching"],
+    category: "Computer Science",
+    difficulty: "Intermediate",
+    icon: Database,
+    grade: "A+",
+    semester: "Fall 2023"
   },
-  { 
-    number: "20+", 
-    label: "Happy Clients", 
-    icon: Users,
-    description: "Satisfied customers",
-    gradient: "from-purple-400 to-purple-600"
+  {
+    title: "Database Management Systems",
+    institute: "Indian Institute of Technology Bombay",
+    department: "Computer Science & Engineering",
+    code: "CS317",
+    instructor: "Prof. S. Sudarshan",
+    description: "Database design, SQL, transaction processing, and distributed database systems with hands-on projects",
+    concepts: ["SQL", "NoSQL", "Indexing", "Transactions", "Normalization", "Query Optimization", "ACID Properties"],
+    category: "Backend",
+    difficulty: "Intermediate",
+    icon: Server,
+    grade: "A",
+    semester: "Spring 2024"
   },
-  { 
-    number: "98%", 
-    label: "Success Rate", 
-    icon: TrendingUp,
-    description: "Project completion",
-    gradient: "from-amber-400 to-amber-600"
+  {
+    title: "Computer Vision",
+    institute: "Indian Institute of Technology Bombay",
+    department: "Electrical Engineering",
+    code: "EE604",
+    instructor: "Prof. Ajit Rajwade",
+    description: "Image processing, feature detection, object recognition, and modern deep learning approaches to vision",
+    concepts: ["Image Processing", "Feature Extraction", "Object Detection", "CNNs", "OpenCV", "YOLO", "Image Segmentation"],
+    category: "AI/ML",
+    difficulty: "Advanced",
+    icon: Activity,
+    grade: "A",
+    semester: "Fall 2024"
+  },
+  {
+    title: "Web Programming",
+    institute: "Indian Institute of Technology Bombay",
+    department: "Computer Science & Engineering",
+    code: "CS252",
+    instructor: "Prof. Varsha Apte",
+    description: "Full-stack web development covering frontend technologies, backend systems, and modern frameworks",
+    concepts: ["HTML/CSS", "JavaScript", "React", "Node.js", "REST APIs", "MongoDB", "Authentication"],
+    category: "Full-Stack",
+    difficulty: "Intermediate",
+    icon: Globe,
+    grade: "A+",
+    semester: "Fall 2023"
+  },
+  {
+    title: "Artificial Intelligence",
+    institute: "Indian Institute of Technology Bombay",
+    department: "Computer Science & Engineering",
+    code: "CS344",
+    instructor: "Prof. Pushpak Bhattacharyya",
+    description: "AI foundations including search algorithms, knowledge representation, reasoning, and intelligent agents",
+    concepts: ["Search Algorithms", "Knowledge Representation", "Expert Systems", "Planning", "Logic", "Probabilistic Reasoning"],
+    category: "AI/ML",
+    difficulty: "Advanced",
+    icon: Sparkle,
+    grade: "A",
+    semester: "Spring 2024"
+  },
+  {
+    title: "Operating Systems",
+    institute: "Indian Institute of Technology Bombay",
+    department: "Computer Science & Engineering",
+    code: "CS347",
+    instructor: "Prof. Mythili Vutukuru",
+    description: "System calls, process management, memory management, file systems, and concurrent programming",
+    concepts: ["Process Management", "Memory Management", "File Systems", "Concurrency", "Synchronization", "Deadlocks"],
+    category: "Systems",
+    difficulty: "Advanced",
+    icon: Monitor,
+    grade: "A",
+    semester: "Fall 2024"
+  },
+  {
+    title: "Software Engineering",
+    institute: "Indian Institute of Technology Bombay",
+    department: "Computer Science & Engineering",
+    code: "CS308",
+    instructor: "Prof. Rushikesh K. Joshi",
+    description: "Software development lifecycle, design patterns, testing methodologies, and project management",
+    concepts: ["SDLC", "Design Patterns", "Testing", "Version Control", "Agile", "UML", "Project Management"],
+    category: "Software Development",
+    difficulty: "Intermediate",
+    icon: Code2,
+    grade: "A+",
+    semester: "Spring 2024"
   }
 ]
+
+const getSkillProficiency = (level) => {
+  if (level >= 90) return { label: "Virtuoso", color: "text-green-400" }
+  if (level >= 70) return { label: "Practitioner", color: "text-purple-400" }
+  return { label: "Explorer", color: "text-gray-400" }
+}
 
 // Navigation configuration
 const NAV_ITEMS = [
   { value: "about", label: "About", icon: User },
-  { value: "portfolio", label: "Projects", icon: Briefcase },
-  { value: "skills", label: "Skills", icon: Zap },
+  { value: "portfolio", label: "Projects", icon: Code2 },
+  { value: "skills", label: "Skills", icon: Sparkle },
   {value: "courses", label: "Courses", icon: GraduationCap },
 ]
 
@@ -254,6 +362,7 @@ const useAnimatedCounter = (end, duration = 2000) => {
 export default function ProfessionalPortfolio() {
   const [activeTab, setActiveTab] = useState("about")
   const [hoveredProject, setHoveredProject] = useState(null)
+  const [hoveredCourse, setHoveredCourse] = useState(null)
   const [isVisible, setIsVisible] = useState(false)
 
   // Memoized calculations for performance
@@ -261,6 +370,13 @@ export default function ProfessionalPortfolio() {
     return PROJECT_DATA.sort((a, b) => {
       const complexityOrder = { High: 3, Medium: 2, Low: 1 }
       return complexityOrder[b.complexity] - complexityOrder[a.complexity]
+    })
+  }, [])
+
+  const filteredCourses = useMemo(() => {
+    return COURSE_DATA.sort((a, b) => {
+      const difficultyOrder = { Advanced: 3, Intermediate: 2, Beginner: 1 }
+      return difficultyOrder[b.difficulty] - difficultyOrder[a.difficulty]
     })
   }, [])
 
@@ -314,42 +430,35 @@ export default function ProfessionalPortfolio() {
         {/* Hero Section with Enhanced Design */}
         <section className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6">
           <div className="text-center max-w-4xl mx-auto">
-            {/* Professional Avatar */}
-            <div className="relative mb-8 group">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full bg-amber-500 flex items-center justify-center text-black text-3xl sm:text-4xl font-bold shadow-2xl  transition-all duration-500 group-hover:shadow-amber-500/50 group-hover:scale-105">
-                HN
+            <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-12 group">
+              {/* Glowing Amber Background Circle */}
+              <div className="absolute inset-0 rounded-full bg-amber-500  z-0 group-hover:scale-105 transition-transform duration-500" />
+
+              {/* Profile Image */}
+              <div className="relative z-10 w-full h-full rounded-full overflow-hidden">
+                <img
+                  src="/Formals.png"
+                  alt="Haris Narrendran - Professional Profile"
+                  className="w-full h-full object-cover filter contrast-100 brightness-100"
+                />
               </div>
             </div>
-
             {/* Enhanced Typography */}
             <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-white via-amber-100 to-amber-400 bg-clip-text text-transparent animate-pulse">
               Haris Narrendran
             </h1>
-            <p className="text-xl sm:text-2xl md:text-3xl text-gray-400 mb-6 font-light">
+            <p className="text-xl sm:text-2xl md:text-3xl text-gray-400 mb-6 font-light whitespace-nowrap">
               Undergraduate @ IIT Bombay | AI Researcher | Backend Developer
             </p>
             <p className="text-gray-500 max-w-2xl mx-auto mb-12 text-lg leading-relaxed">
               I’m a third-year student passionate about building intelligent systems — from AI models to backend services and applied machine learning pipelines.
             </p>
 
-            {/* Enhanced CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <Button className="bg-amber-500 hover:bg-amber-600 text-black font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300 hover:scale-105 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 group">
-                <Download className="mr-2 group-hover:animate-bounce" size={20} />
-                Download Resume
-              </Button>
-              <Button className="border-2 border-amber-500 text-amber-400 hover:bg-amber-500 hover:text-black font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300 hover:scale-105 group">
-                <Mail className="mr-2 group-hover:animate-pulse" size={20} />
-                Get In Touch
-              </Button>
-            </div>
-
             {/* Enhanced Social Links */}
             <div className="flex justify-center space-x-6">
               {[
                 { Icon: Github, href: "#", label: "GitHub", color: "hover:text-gray-300" },
                 { Icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:text-blue-400" },
-                { Icon: Twitter, href: "#", label: "Twitter", color: "hover:text-sky-400" },
                 { Icon: Mail, href: "#", label: "Email", color: "hover:text-red-400" }
               ].map(({ Icon, href, label, color }) => (
                 <a
@@ -410,7 +519,7 @@ export default function ProfessionalPortfolio() {
 
                     <div className="flex flex-wrap gap-3 pt-4">
                         {['Artificial Intelligence', 'Backend Systems', 'Computer Vision', 'Diffusion Models', 'Recommender System', 'Data Structures'].map((interest) => (
-                        <span key={interest} className="px-4 py-2 bg-amber-500/10 text-amber-400 rounded-full text-sm border border-amber-500/20 hover:bg-amber-500/20 transition-colors">
+                        <span key={interest} className="px-4 py-2 bg-gray-800 text-gray-300 rounded-full text-sm border border-gray-700 hover:bg-gray-700 transition-colors">
                             {interest}
                         </span>
                         ))}
@@ -425,13 +534,13 @@ export default function ProfessionalPortfolio() {
                 </TabsContent>
 
 
-              {/* Enhanced Portfolio Tab */}
+              {/* Enhanced Project Tab */}
               <TabsContent value="portfolio" className="mt-8">
-                <div className="text-center mb-12">
-                  <h2 className="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-amber-400 bg-clip-text text-transparent">
+                <div className="items-center mb-12">
+                  <h2 className="text-4xl lg:text-5xl font-bold mb-4 ">
                     Featured Work
                   </h2>
-                  <p className="text-gray-400 text-lg">A selection of projects that showcase my expertise</p>
+                  <div className="w-20 h-1 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full mb-8"></div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -486,18 +595,18 @@ export default function ProfessionalPortfolio() {
                 </div>
               </TabsContent>
 
-              {/* Enhanced Skills Tab */}
               <TabsContent value="skills" className="mt-8">
-                <div className="text-center mb-12">
-                  <h2 className="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-amber-400 bg-clip-text text-transparent">
-                    Skills & Expertise
+                <div className="items-center mb-12">
+                  <h2 className="text-4xl lg:text-5xl font-bold mb-4 ">
+                    Skills
                   </h2>
-                  <p className="text-gray-400 text-lg">Technologies and tools I master</p>
+                  <div className="w-20 h-1 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full mb-8"></div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                   {SKILLS_DATA.map((skill, index) => {
                     const IconComponent = skill.icon
+                    const proficiency = getSkillProficiency(skill.level)
                     
                     return (
                       <div key={skill.name} className="bg-gray-900/30 backdrop-blur border border-gray-800 rounded-2xl p-6 hover:border-amber-500/30 transition-all duration-300 group">
@@ -506,24 +615,91 @@ export default function ProfessionalPortfolio() {
                             <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
                               <IconComponent size={20} className="text-amber-400 group-hover:animate-pulse" />
                             </div>
-                            <div>
+                            <div className="flex-1">
                               <span className="text-lg font-semibold">{skill.name}</span>
                               <div className="text-xs text-gray-500 uppercase tracking-wide">{skill.category}</div>
                             </div>
                           </div>
-                          <span className="text-amber-400 font-mono font-bold text-lg">{skill.level}%</span>
-                        </div>
-                        
-                        <div className="w-full bg-gray-800 rounded-full h-2 overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-amber-400 to-amber-600 rounded-full transition-all duration-1000 ease-out"
-                            style={{
-                              width: `${skill.level}%`,
-                              transitionDelay: `${index * 100}ms`
-                            }}
-                          />
+                          <div className="text-right">
+                            <div className={`text-sm font-medium ${proficiency.color}`}>
+                              {proficiency.label}
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    )
+                  })}
+                </div>
+              </TabsContent>
+              <TabsContent value="courses" className="mt-8">
+                <div className="items-center mb-12">
+                  <h2 className="text-4xl lg:text-5xl font-bold mb-4">
+                    Academic Courses
+                  </h2>
+                  <div className="w-20 h-1 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full mb-8"></div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {filteredCourses.map((course, index) => {
+                    const IconComponent = course.icon
+                    const difficultyStyle = getDifficultyColor(course.difficulty)
+                    const gradeColor = getGradeColor(course.grade)
+                    
+                    return (
+                      <Card
+                        key={index}
+                        className="bg-gray-900/30 backdrop-blur border border-gray-800 rounded-2xl overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:scale-105 group cursor-pointer relative"
+                        onMouseEnter={() => setHoveredCourse(index)}
+                        onMouseLeave={() => setHoveredCourse(null)}
+                      >
+                        
+                        <CardContent className="p-6">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                              <IconComponent size={20} className="text-amber-400" />
+                            </div>
+                            <div className="flex-1">
+                              <span className="text-xs text-gray-500 uppercase tracking-wide">{course.category}</span>
+                              <div className="text-xs text-gray-600">{course.code}</div>
+                            </div>
+                            
+                          </div>
+                          
+                          <h3 className="text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors line-clamp-2">
+                            {course.title}
+                          </h3>
+                          
+                          <p className="text-gray-500 text-xs mb-2">
+                            {course.instructor} • {course.semester}
+                          </p>
+                          
+                          <p className="text-gray-400 mb-4 text-sm leading-relaxed line-clamp-3">
+                            {course.description}
+                          </p>
+
+                          <div className="flex items-center justify-between mb-4">
+                            <span className={`px-3 py-1 rounded-full text-xs font-medium border ${difficultyStyle}`}>
+                              {course.difficulty}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {course.department}
+                            </span>
+                          </div>
+                          
+                          <div className="flex flex-wrap gap-1">
+                            {course.concepts.slice(0, 4).map((concept) => (
+                              <span key={concept} className="px-2 py-1 bg-gray-800 text-gray-300 rounded-full text-xs hover:bg-gray-700 transition-colors">
+                                {concept}
+                              </span>
+                            ))}
+                            {course.concepts.length > 4 && (
+                              <span className="px-2 py-1 bg-gray-700 text-gray-400 rounded-full text-xs">
+                                +{course.concepts.length - 4}
+                              </span>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
                     )
                   })}
                 </div>
@@ -539,12 +715,9 @@ export default function ProfessionalPortfolio() {
           <div className="flex items-center justify-center gap-2 mb-4">
             <Coffee size={20} className="text-amber-400" />
             <span className="text-gray-500">
-              © 2025 Haris Narrendran. Crafted with ❤️ and lots of ☕
+              © 2025 Haris Narrendran. Crafted with ❤️ 
             </span>
           </div>
-          <p className="text-gray-600 text-sm">
-            Building the future, one line of code at a time.
-          </p>
         </div>
       </footer>
     </div>
