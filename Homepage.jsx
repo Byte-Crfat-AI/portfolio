@@ -3,7 +3,13 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
+import { Search, X } from "lucide-react"
+import PROJECT_DATA from "@/data/projects"
+import SKILLS_DATA from "@/data/skills"
+import COURSE_DATA from "@/data/courses"
+import Link from "next/link"
 import { 
   Github, 
   Twitter, 
@@ -39,7 +45,20 @@ import {
   GitBranch,
   Coffee,
   GraduationCap,
-  Sparkle
+  Sparkle,
+  Settings,
+  Satellite,
+  Code,
+  Function,
+  Pi,
+  Calculator,
+  Sigma,
+  Atom,
+  CircuitBoard,
+  Cpu,
+  FlaskConical,
+  Waves,
+  Thermometer
 } from "lucide-react"
 
 // Professional theme configuration with design tokens
@@ -90,241 +109,6 @@ const getDifficultyColor = (difficulty) => {
   }
 }
 
-// Function to get grade color
-const getGradeColor = (grade) => {
-  if (grade === 'A+') return 'text-emerald-400'
-  if (grade === 'A') return 'text-green-400'
-  if (grade === 'B+') return 'text-blue-400'
-  if (grade === 'B') return 'text-yellow-400'
-  return 'text-gray-400'
-}
-
-// Enhanced project data with proper categorization
-const PROJECT_DATA = [
-  { 
-    title: "E-Commerce Platform", 
-    tech: ["React", "Node.js", "PostgreSQL", "Stripe"], 
-    description: "Full-stack shopping solution with real-time inventory management",
-    icon: ShoppingCart,
-    category: "Full-Stack",
-    complexity: "High"
-  },
-  { 
-    title: "Task Management App", 
-    tech: ["Next.js", "Firebase", "TypeScript"], 
-    description: "Collaborative productivity tool with real-time synchronization",
-    icon: CheckSquare,
-    category: "Frontend",
-    complexity: "Medium"
-  },
-  { 
-    title: "AI Analytics Dashboard", 
-    tech: ["Python", "React", "TensorFlow", "D3.js"], 
-    description: "Machine learning powered data visualization platform",
-    icon: Brain,
-    category: "Data Science",
-    complexity: "High"
-  },
-  { 
-    title: "Mobile Banking App", 
-    tech: ["React Native", "Node.js", "MongoDB"], 
-    description: "Secure financial interface with biometric authentication",
-    icon: CreditCard,
-    category: "Mobile",
-    complexity: "High"
-  },
-  { 
-    title: "Social Media Dashboard", 
-    tech: ["MERN Stack", "Redis", "Socket.io"], 
-    description: "Content management system with real-time analytics",
-    icon: Share2,
-    category: "Full-Stack",
-    complexity: "Medium"
-  },
-  { 
-    title: "Performance Analytics", 
-    tech: ["Docker", "AWS", "Grafana", "Prometheus"], 
-    description: "Real-time monitoring and performance insights platform",
-    icon: Activity,
-    category: "DevOps",
-    complexity: "High"
-  }
-]
-
-// Enhanced skills data with categories and modern icons
-const SKILLS_DATA = [
-  { 
-    name: 'React', 
-    level: 95, 
-    icon: Monitor, 
-    category: 'Frontend',
-    color: '#61DAFB'
-  },
-  { 
-    name: 'Next.js', 
-    level: 90, 
-    icon: Layers, 
-    category: 'Framework',
-    color: '#000000'
-  },
-  { 
-    name: 'TypeScript', 
-    level: 88, 
-    icon: Code2, 
-    category: 'Language',
-    color: '#3178C6'
-  },
-  { 
-    name: 'Node.js', 
-    level: 92, 
-    icon: Server, 
-    category: 'Backend',
-    color: '#339933'
-  },
-  { 
-    name: 'Python', 
-    level: 85, 
-    icon: Database, 
-    category: 'Language',
-    color: '#3776AB'
-  },
-  { 
-    name: 'AWS', 
-    level: 80, 
-    icon: Cloud, 
-    category: 'Cloud',
-    color: '#FF9900'
-  },
-  { 
-    name: 'UI/UX Design', 
-    level: 30, 
-    icon: Palette, 
-    category: 'Design',
-    color: '#FF6B6B'
-  },
-  { 
-    name: 'DevOps', 
-    level: 83, 
-    icon: GitBranch, 
-    category: 'Operations',
-    color: '#326CE5'
-  }
-]
-
-const COURSE_DATA = [
-  {
-    title: "Machine Learning Fundamentals",
-    institute: "Indian Institute of Technology Bombay",
-    department: "Computer Science & Engineering",
-    code: "CS419",
-    instructor: "Prof. Ganesh Ramakrishnan",
-    description: "Comprehensive introduction to machine learning algorithms, mathematical foundations, and practical applications",
-    concepts: ["Linear Regression", "SVM", "Neural Networks", "Deep Learning", "CNN", "RNN", "Optimization"],
-    category: "AI/ML",
-    difficulty: "Advanced",
-    icon: Brain,
-    grade: "A",
-    semester: "Spring 2024"
-  },
-  {
-    title: "Data Structures and Algorithms",
-    institute: "Indian Institute of Technology Bombay",
-    department: "Computer Science & Engineering",
-    code: "CS213",
-    instructor: "Prof. Sunita Sarawagi",
-    description: "Advanced data structures, algorithm design techniques, and complexity analysis for efficient problem solving",
-    concepts: ["Trees", "Graphs", "Dynamic Programming", "Greedy Algorithms", "Hashing", "Sorting", "Searching"],
-    category: "Computer Science",
-    difficulty: "Intermediate",
-    icon: Database,
-    grade: "A+",
-    semester: "Fall 2023"
-  },
-  {
-    title: "Database Management Systems",
-    institute: "Indian Institute of Technology Bombay",
-    department: "Computer Science & Engineering",
-    code: "CS317",
-    instructor: "Prof. S. Sudarshan",
-    description: "Database design, SQL, transaction processing, and distributed database systems with hands-on projects",
-    concepts: ["SQL", "NoSQL", "Indexing", "Transactions", "Normalization", "Query Optimization", "ACID Properties"],
-    category: "Backend",
-    difficulty: "Intermediate",
-    icon: Server,
-    grade: "A",
-    semester: "Spring 2024"
-  },
-  {
-    title: "Computer Vision",
-    institute: "Indian Institute of Technology Bombay",
-    department: "Electrical Engineering",
-    code: "EE604",
-    instructor: "Prof. Ajit Rajwade",
-    description: "Image processing, feature detection, object recognition, and modern deep learning approaches to vision",
-    concepts: ["Image Processing", "Feature Extraction", "Object Detection", "CNNs", "OpenCV", "YOLO", "Image Segmentation"],
-    category: "AI/ML",
-    difficulty: "Advanced",
-    icon: Activity,
-    grade: "A",
-    semester: "Fall 2024"
-  },
-  {
-    title: "Web Programming",
-    institute: "Indian Institute of Technology Bombay",
-    department: "Computer Science & Engineering",
-    code: "CS252",
-    instructor: "Prof. Varsha Apte",
-    description: "Full-stack web development covering frontend technologies, backend systems, and modern frameworks",
-    concepts: ["HTML/CSS", "JavaScript", "React", "Node.js", "REST APIs", "MongoDB", "Authentication"],
-    category: "Full-Stack",
-    difficulty: "Intermediate",
-    icon: Globe,
-    grade: "A+",
-    semester: "Fall 2023"
-  },
-  {
-    title: "Artificial Intelligence",
-    institute: "Indian Institute of Technology Bombay",
-    department: "Computer Science & Engineering",
-    code: "CS344",
-    instructor: "Prof. Pushpak Bhattacharyya",
-    description: "AI foundations including search algorithms, knowledge representation, reasoning, and intelligent agents",
-    concepts: ["Search Algorithms", "Knowledge Representation", "Expert Systems", "Planning", "Logic", "Probabilistic Reasoning"],
-    category: "AI/ML",
-    difficulty: "Advanced",
-    icon: Sparkle,
-    grade: "A",
-    semester: "Spring 2024"
-  },
-  {
-    title: "Operating Systems",
-    institute: "Indian Institute of Technology Bombay",
-    department: "Computer Science & Engineering",
-    code: "CS347",
-    instructor: "Prof. Mythili Vutukuru",
-    description: "System calls, process management, memory management, file systems, and concurrent programming",
-    concepts: ["Process Management", "Memory Management", "File Systems", "Concurrency", "Synchronization", "Deadlocks"],
-    category: "Systems",
-    difficulty: "Advanced",
-    icon: Monitor,
-    grade: "A",
-    semester: "Fall 2024"
-  },
-  {
-    title: "Software Engineering",
-    institute: "Indian Institute of Technology Bombay",
-    department: "Computer Science & Engineering",
-    code: "CS308",
-    instructor: "Prof. Rushikesh K. Joshi",
-    description: "Software development lifecycle, design patterns, testing methodologies, and project management",
-    concepts: ["SDLC", "Design Patterns", "Testing", "Version Control", "Agile", "UML", "Project Management"],
-    category: "Software Development",
-    difficulty: "Intermediate",
-    icon: Code2,
-    grade: "A+",
-    semester: "Spring 2024"
-  }
-]
 
 const getSkillProficiency = (level) => {
   if (level >= 90) return { label: "Virtuoso", color: "text-green-400" }
@@ -361,15 +145,29 @@ const useAnimatedCounter = (end, duration = 2000) => {
 // Main component with enhanced architecture
 export default function ProfessionalPortfolio() {
   const [activeTab, setActiveTab] = useState("about")
+  useEffect(() => {
+    const hash = window.location.hash
+    if (hash === "#courses") {
+      setActiveTab("courses")
+    } else if (hash === "#portfolio") {
+      setActiveTab("portfolio")
+    } else if (hash === "#skills") {
+      setActiveTab("skills")
+    } else {
+      setActiveTab("about")
+    }
+  }, [])
   const [hoveredProject, setHoveredProject] = useState(null)
   const [hoveredCourse, setHoveredCourse] = useState(null)
   const [isVisible, setIsVisible] = useState(false)
-
+  const [showSearch, setShowSearch] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("") // Add this missing state
   // Memoized calculations for performance
   const filteredProjects = useMemo(() => {
     return PROJECT_DATA.sort((a, b) => {
-      const complexityOrder = { High: 3, Medium: 2, Low: 1 }
-      return complexityOrder[b.complexity] - complexityOrder[a.complexity]
+      if (a.complexity === "High" && b.complexity !== "High") return -1
+      if (a.complexity !== "High" && b.complexity === "High") return 1
+      return 0
     })
   }, [])
 
@@ -379,7 +177,7 @@ export default function ProfessionalPortfolio() {
       return difficultyOrder[b.difficulty] - difficultyOrder[a.difficulty]
     })
   }, [])
-
+  
   const skillsByCategory = useMemo(() => {
     return SKILLS_DATA.reduce((acc, skill) => {
       if (!acc[skill.category]) acc[skill.category] = []
@@ -416,6 +214,18 @@ export default function ProfessionalPortfolio() {
     }
   }
 
+    const handleSearch = (query) => {
+    console.log('Search query:', query)
+    // Add your search logic here
+    // This function will be called when user types in the search input
+  }
+
+  // Clear search
+  const clearSearch = () => {
+    setSearchQuery("")
+    setShowSearch(false)
+  }
+
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
       {/* Enhanced Animated Background */}
@@ -424,15 +234,48 @@ export default function ProfessionalPortfolio() {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-3/4 left-1/2 w-64 h-64 bg-purple-500/3 rounded-full blur-2xl animate-pulse delay-2000"></div>
       </div>
+      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4">
+        <div className={`transition-all duration-300 ${showSearch ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}>
+          <div className="relative">
+            <Input
+              type="text"
+              placeholder="Search projects, skills, courses..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value)
+                handleSearch(e.target.value)
+              }}
+              className="w-full bg-gray-900/90 backdrop-blur-xl border-gray-700 rounded-2xl pl-12 pr-12 py-3 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all duration-300"
+            />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              >
+                <X size={18} />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
 
+      {/* Search Toggle Button */}
+      <button
+        onClick={() => setShowSearch(!showSearch)}
+        className="fixed top-4 right-4 z-50 w-12 h-12 bg-gray-900/90 backdrop-blur-xl border border-gray-700 rounded-full flex items-center justify-center text-gray-400 hover:text-amber-400 hover:border-amber-500/50 transition-all duration-300 hover:scale-110 group"
+      >
+        <Search size={18} className="group-hover:animate-pulse" />
+      </button>
       {/* Main Content Container */}
       <div className="relative z-10">
         {/* Hero Section with Enhanced Design */}
-        <section className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-12 group">
+        {/* Hero Section with Enhanced Design */}
+        <section className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 py-16 sm:py-0">
+          <div className="text-center max-w-4xl mx-auto w-full">
+            <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 mx-auto mb-8 sm:mb-12 group">
               {/* Glowing Amber Background Circle */}
-              <div className="absolute inset-0 rounded-full bg-amber-500  z-0 group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute inset-0 rounded-full bg-amber-500 z-0 group-hover:scale-105 transition-transform duration-500" />
 
               {/* Profile Image */}
               <div className="relative z-10 w-full h-full rounded-full overflow-hidden">
@@ -443,19 +286,26 @@ export default function ProfessionalPortfolio() {
                 />
               </div>
             </div>
+
             {/* Enhanced Typography */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-white via-amber-100 to-amber-400 bg-clip-text text-transparent animate-pulse">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 bg-gradient-to-r from-white via-amber-100 to-amber-400 bg-clip-text text-transparent animate-pulse leading-tight">
               Haris Narrendran
             </h1>
-            <p className="text-xl sm:text-2xl md:text-3xl text-gray-400 mb-6 font-light whitespace-nowrap">
-              Undergraduate @ IIT Bombay | AI Researcher | Backend Developer
+            
+            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl text-gray-400 mb-4 sm:mb-6 font-light px-2 sm:px-4">
+              <span className="block sm:inline">Undergraduate @ IIT Bombay</span>
+              <span className="hidden sm:inline"> | </span>
+              <span className="block sm:inline">AI Researcher</span>
+              <span className="hidden sm:inline"> | </span>
+              <span className="block sm:inline">Backend Developer</span>
             </p>
-            <p className="text-gray-500 max-w-2xl mx-auto mb-12 text-lg leading-relaxed">
-              I’m a third-year student passionate about building intelligent systems — from AI models to backend services and applied machine learning pipelines.
+            
+            <p className="text-gray-500 max-w-2xl mx-auto mb-8 sm:mb-12 text-base sm:text-lg leading-relaxed px-4 sm:px-0">
+              I'm a third-year student passionate about building intelligent systems — from AI models to backend services and applied machine learning pipelines.
             </p>
 
             {/* Enhanced Social Links */}
-            <div className="flex justify-center space-x-6">
+            <div className="flex justify-center space-x-4 sm:space-x-6 px-4">
               {[
                 { Icon: Github, href: "#", label: "GitHub", color: "hover:text-gray-300" },
                 { Icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:text-blue-400" },
@@ -464,10 +314,10 @@ export default function ProfessionalPortfolio() {
                 <a
                   key={label}
                   href={href}
-                  className={`w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 ${color} hover:border-current hover:bg-current/5 transition-all duration-300 hover:scale-110 group`}
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-700 flex items-center justify-center text-gray-400 ${color} hover:border-current hover:bg-current/5 transition-all duration-300 hover:scale-110 group`}
                   aria-label={label}
                 >
-                  <Icon size={20} className="group-hover:animate-pulse" />
+                  <Icon size={18} className="sm:w-5 sm:h-5 group-hover:animate-pulse" />
                 </a>
               ))}
             </div>
@@ -548,6 +398,7 @@ export default function ProfessionalPortfolio() {
                     const IconComponent = project.icon
                     
                     return (
+                      <Link href={`/projects/${project.code}`}>
                       <Card
                         key={index}
                         className="bg-gray-900/30 backdrop-blur border border-gray-800 rounded-2xl overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:scale-105 group cursor-pointer relative"
@@ -573,7 +424,7 @@ export default function ProfessionalPortfolio() {
                             </div>
                           </div>
                           
-                          <h3 className="text-xl font-semibold mb-3 group-hover:text-amber-400 transition-colors">
+                          <h3 className="text-xl font-semibold mb-3 text-amber-400 transition-colors">
                             {project.title}
                           </h3>
                           
@@ -590,6 +441,7 @@ export default function ProfessionalPortfolio() {
                           </div>
                         </CardContent>
                       </Card>
+                      </Link>
                     )
                   })}
                 </div>
@@ -609,6 +461,7 @@ export default function ProfessionalPortfolio() {
                     const proficiency = getSkillProficiency(skill.level)
                     
                     return (
+            
                       <div key={skill.name} className="bg-gray-900/30 backdrop-blur border border-gray-800 rounded-2xl p-6 hover:border-amber-500/30 transition-all duration-300 group">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-3">
@@ -631,6 +484,7 @@ export default function ProfessionalPortfolio() {
                   })}
                 </div>
               </TabsContent>
+
               <TabsContent value="courses" className="mt-8">
                 <div className="items-center mb-12">
                   <h2 className="text-4xl lg:text-5xl font-bold mb-4">
@@ -643,67 +497,71 @@ export default function ProfessionalPortfolio() {
                   {filteredCourses.map((course, index) => {
                     const IconComponent = course.icon
                     const difficultyStyle = getDifficultyColor(course.difficulty)
-                    const gradeColor = getGradeColor(course.grade)
-                    
-                    return (
-                      <Card
-                        key={index}
-                        className="bg-gray-900/30 backdrop-blur border border-gray-800 rounded-2xl overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:scale-105 group cursor-pointer relative"
-                        onMouseEnter={() => setHoveredCourse(index)}
-                        onMouseLeave={() => setHoveredCourse(null)}
-                      >
-                        
-                        <CardContent className="p-6">
-                          <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                              <IconComponent size={20} className="text-amber-400" />
-                            </div>
-                            <div className="flex-1">
-                              <span className="text-xs text-gray-500 uppercase tracking-wide">{course.category}</span>
-                              <div className="text-xs text-gray-600">{course.code}</div>
-                            </div>
-                            
-                          </div>
-                          
-                          <h3 className="text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors line-clamp-2">
-                            {course.title}
-                          </h3>
-                          
-                          <p className="text-gray-500 text-xs mb-2">
-                            {course.instructor} • {course.semester}
-                          </p>
-                          
-                          <p className="text-gray-400 mb-4 text-sm leading-relaxed line-clamp-3">
-                            {course.description}
-                          </p>
 
-                          <div className="flex items-center justify-between mb-4">
-                            <span className={`px-3 py-1 rounded-full text-xs font-medium border ${difficultyStyle}`}>
-                              {course.difficulty}
-                            </span>
-                            <span className="text-xs text-gray-500">
-                              {course.department}
-                            </span>
-                          </div>
-                          
-                          <div className="flex flex-wrap gap-1">
-                            {course.concepts.slice(0, 4).map((concept) => (
-                              <span key={concept} className="px-2 py-1 bg-gray-800 text-gray-300 rounded-full text-xs hover:bg-gray-700 transition-colors">
-                                {concept}
+                    return (
+                      <Link href={`/courses/${course.code}`} key={index}>
+                        <Card
+                          className="bg-gray-900/30 backdrop-blur border border-gray-800 rounded-2xl overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:scale-105 group cursor-pointer relative"
+                          onMouseEnter={() => setHoveredCourse(index)}
+                          onMouseLeave={() => setHoveredCourse(null)}
+                        >
+                          <CardContent className="p-6">
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                                <IconComponent size={20} className="text-amber-400" />
+                              </div>
+                              <div className="flex-1">
+                                <span className="text-xs text-gray-500 uppercase tracking-wide">
+                                  {course.category}
+                                </span>
+                                <div className="text-xs text-gray-600">{course.code}</div>
+                              </div>
+                            </div>
+
+                            <h3 className="text-xl font-semibold mb-2 text-amber-400 transition-colors line-clamp-2">
+                              {course.title}
+                            </h3>
+
+                            <p className="text-gray-500 text-xs mb-2">
+                              {course.instructor} • {course.semester}
+                            </p>
+
+                            <p className="text-gray-400 mb-4 text-sm leading-relaxed line-clamp-3">
+                              {course.description}
+                            </p>
+
+                            <div className="flex items-center justify-between mb-4">
+                              <span
+                                className={`px-3 py-1 rounded-full text-xs font-medium border ${difficultyStyle}`}
+                              >
+                                {course.difficulty}
                               </span>
-                            ))}
-                            {course.concepts.length > 4 && (
-                              <span className="px-2 py-1 bg-gray-700 text-gray-400 rounded-full text-xs">
-                                +{course.concepts.length - 4}
-                              </span>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
+                              <span className="text-xs text-gray-500">{course.department}</span>
+                            </div>
+
+                            <div className="flex flex-wrap gap-1">
+                              {course.concepts.slice(0, 4).map((concept) => (
+                                <span
+                                  key={concept}
+                                  className="px-2 py-1 bg-gray-800 text-gray-300 rounded-full text-xs hover:bg-gray-700 transition-colors"
+                                >
+                                  {concept}
+                                </span>
+                              ))}
+                              {course.concepts.length > 4 && (
+                                <span className="px-2 py-1 bg-gray-700 text-gray-400 rounded-full text-xs">
+                                  +{course.concepts.length - 4}
+                                </span>
+                              )}
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
                     )
                   })}
                 </div>
               </TabsContent>
+
             </Tabs>
           </div>
         </section>
